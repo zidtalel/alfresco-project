@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
@@ -204,7 +204,8 @@
         >
           <p class="font-bold">Accès Refusé</p>
           <p id="error-text">
-            Login ou mot de passe incorrect. Veuillez vérifier vos identifiants.
+            Login ou mot de passe incorrect. Veuillez vérifier vos identifiants
+            !
           </p>
         </div>
 
@@ -270,7 +271,7 @@
         async function loadCredentials() {
           try {
             console.log(
-              `Tentative de chargement des identifiants depuis ${CREDENTIALS_FILE}...`
+              `Tentative de chargement des identifiants depuis ${CREDENTIALS_FILE}...`,
             );
 
             // Utilisation de fetch pour lire le fichier JSON
@@ -278,7 +279,7 @@
 
             if (!response.ok) {
               throw new Error(
-                `Erreur HTTP: ${response.status} (Vérifiez l'existence du fichier et les droits d'accès/CORS)`
+                `Erreur HTTP: ${response.status} (Vérifiez l'existence du fichier et les droits d'accès/CORS)`,
               );
             }
 
@@ -287,7 +288,7 @@
             // Nouvelle structure : data.accounts[]
             if (!Array.isArray(data.accounts) || data.accounts.length === 0) {
               throw new Error(
-                "Structure JSON invalide : 'accounts' manquant ou vide."
+                "Structure JSON invalide : 'accounts' manquant ou vide.",
               );
             }
 
@@ -298,12 +299,12 @@
                 role: acc.role || "student",
               }))
               .filter(
-                (acc) => acc.username !== "" && acc.password !== "" && acc.role
+                (acc) => acc.username !== "" && acc.password !== "" && acc.role,
               );
 
             if (ACCOUNTS.length === 0) {
               throw new Error(
-                "Aucun compte valide après décodage. Vérifiez le fichier credentials.json."
+                "Aucun compte valide après décodage. Vérifiez le fichier credentials.json.",
               );
             }
 
@@ -313,7 +314,7 @@
             loginButton.classList.add(
               "bg-indigo-600",
               "hover:bg-indigo-700",
-              "cursor-pointer"
+              "cursor-pointer",
             );
             buttonText.textContent = "Se Connecter";
 
@@ -322,12 +323,12 @@
                 ACCOUNTS.length
               }) et bouton activé. Rôles détectés: ${[
                 ...new Set(ACCOUNTS.map((a) => a.role)),
-              ].join(", ")}`
+              ].join(", ")}`,
             );
           } catch (error) {
             console.error(
               "Échec du chargement critique des identifiants:",
-              error.message
+              error.message,
             );
 
             // Afficher un message d'erreur persistant sur le bouton
@@ -368,7 +369,7 @@
           // Vérification de la disponibilité des identifiants (devrait être chargé si le bouton est actif)
           if (ACCOUNTS.length === 0 || loginButton.disabled) {
             console.warn(
-              "Connexion impossible : identifiants non chargés ou erreur de configuration."
+              "Connexion impossible : identifiants non chargés ou erreur de configuration.",
             );
             return;
           }
@@ -390,7 +391,7 @@
           // Recherche du compte correspondant
           const matchedAccount = ACCOUNTS.find(
             (acc) =>
-              acc.username === usernameInput && acc.password === passwordInput
+              acc.username === usernameInput && acc.password === passwordInput,
           );
 
           if (matchedAccount) {
@@ -409,7 +410,7 @@
           } else {
             // --- CONNEXION ÉCHOUÉE ---
             console.log(
-              "Échec de la connexion (identifiants ou rôle inexistant)."
+              "Échec de la connexion (identifiants ou rôle inexistant).",
             );
 
             // 1. Masquer le message de chargement
